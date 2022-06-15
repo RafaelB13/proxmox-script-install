@@ -30,28 +30,28 @@ sleep 1
 read -p "Configuração de IP => (Aperte [ENTER] para escolher o IP: $(ip a | grep inet | awk -F '  +' '{print $2}'| cut -d" " -f2 | sed -e "s/^/IP: /g" | cut -d/ -f1 | head -2 | cut -d ':' -f 2 | tail -n 1 | sed -e "s/ //g")) ou digite um IP diferente: " ip
 while [ -z "$ip" ]; do
 
-if [ -z "$ip" ]
-then
-	while [ -z "$ip" ]; do
-    	read -p "Deseja utilizar o IP $IPESCOLHA?  (y/n): " yn
-    	case $yn in
-        	[Yy]* ) ip=$IPESCOLHA; break;;
-        	[Nn]* )
-			while [ -z "$ip" ]; do
-				if [ -z "$ip" ]
-				then
-					echo "INSIRA UM ENDEREÇO DE IP!";
-					read -p "Insira o IP (Sem máscara): " ip;
-				fi
-			done
-			;;
-        	* ) echo "Escolha uma opção correta!";;
-    	esac
-done
+	if [ -z "$ip" ]
+	then
+		while [ -z "$ip" ]; do
+			read -p "Deseja utilizar o IP $IPESCOLHA?  (y/n): " yn
+			case $yn in
+				[Yy]* ) ip=$IPESCOLHA; break;;
+				[Nn]* )
+					while [ -z "$ip" ]; do
+						if [ -z "$ip" ]
+						then
+							echo "INSIRA UM ENDEREÇO DE IP!";
+							read -p "Insira o IP (Sem máscara): " ip;
+						fi
+				done
+				;;
+			* ) echo "Escolha uma opção correta!";;
+			esac
+		done
 
-else
-      echo "ENDEREÇO IP: $ip"
-fi
+	else
+	      echo "ENDEREÇO IP: $ip"
+	fi
 done
 
 echo
@@ -60,14 +60,14 @@ echo
 read -p "Insira o hostname: (ex: server-01.ne1.absam.network) " hostname
 while [ -z "$hostname" ]; do
 
-if [ -z "$hostname" ]
-then
-	echo "INSIRA UM HOSTNAME!"
-	read -p "Insira o hostname: (ex: server-01.ne1.absam.network) " hostname
-else
-	echo "Hostname: $ip"
-	echo $hostname > /etc/hostname
-fi
+	if [ -z "$hostname" ]
+	then
+		echo "INSIRA UM HOSTNAME!"
+		read -p "Insira o hostname: (ex: server-01.ne1.absam.network) " hostname
+	else
+		echo "Hostname: $ip"
+		echo $hostname > /etc/hostname
+	fi
 
 done
 cat <<EOF >/etc/hosts
