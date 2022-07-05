@@ -58,18 +58,17 @@ echo
 echo
 
 read -p "Insira o hostname: (ex: server-01.ne1.absam.network) " hostname
-while [ -z "$hostname" ]; do
-
 if [ -z "$hostname" ]
 then
+while [ -z "$hostname" ]; do
+
 	echo "INSIRA UM HOSTNAME!"
 	read -p "Insira o hostname: (ex: server-01.ne1.absam.network) " hostname
+done
 else
-	echo "Hostname: $ip"
 	echo $hostname > /etc/hostname
 fi
 
-done
 cat <<EOF >/etc/hosts
 # Your system has configured 'manage_etc_hosts' as True.
 # As a result, if you wish for changes to this file to persist
