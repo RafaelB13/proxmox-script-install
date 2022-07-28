@@ -67,6 +67,7 @@ while [ -z "$hostname" ]; do
 done
 else
 	echo $hostname > /etc/hostname
+	hostname $hostname
 fi
 
 cat <<EOF >/etc/hosts
